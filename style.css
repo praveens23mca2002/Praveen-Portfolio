@@ -731,6 +731,9 @@ body {
     font-size: 0.9rem;
     transition: all 0.3s;
 }
+.form-group textarea {
+    resize: none; /* Disables all resizing to keep the size constant */
+}
 .form-group input:focus, .form-group textarea:focus {
     border-color: var(--accent-color);
     background: transparent;
