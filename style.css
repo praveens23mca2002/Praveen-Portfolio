@@ -550,43 +550,104 @@ body {
 
 /* --- Certifications Display (Mobile-First) --- */
 .certs-grid {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 220px));
+    justify-content: center;
     gap: 16px;
     width: 100%;
 }
 .cert-card {
     padding: 20px 16px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+    position: relative;
 }
 .placeholder {
     display: flex;
+    flex-direction: column;
     gap: 16px;
     align-items: center;
+    justify-content: center;
+    height: 100%;
     width: 100%;
-}
-.cert-icon {
-    font-size: 1.75rem;
-    color: var(--accent-color);
-    flex-shrink: 0;
+    text-align: center;
 }
 .cert-content {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
 }
-.cert-content h3 { font-size: 1rem; margin-bottom: 4px; line-height: 1.3; }
-.cert-content p { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0; }
-.placeholder .cert-view {
-    align-self: center;
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    padding: 0;
+.cert-content h3 { 
+    font-size: 1.05rem; 
+    margin-bottom: 0; 
+    line-height: 1.4; 
+    font-weight: 600;
+}
+.cert-content p { 
+    font-size: 0.85rem; 
+    color: var(--text-secondary); 
+    margin-bottom: 0; 
+    line-height: 1.4;
+}
+.cert-link {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    color: var(--accent-color);
+    text-decoration: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.75rem;
+    transition: opacity 0.2s ease;
+}
+.cert-link:hover {
+    opacity: 0.8;
+}
+.cert-link i {
+    font-size: 0.85rem;
+    -webkit-text-stroke: 0.8px currentColor;
+    font-weight: 900;
+    transition: transform 0.2s ease;
+}
+.cert-link:hover i {
+    transform: translateX(3px);
+}
+
+@media (max-width: 480px) {
+    .certs-grid {
+        gap: 12px;
+    }
+    .cert-card {
+        padding: 12px 10px;
+    }
+    .placeholder {
+        gap: 10px;
+    }
+    .cert-content h3 {
+        font-size: 0.85rem;
+        line-height: 1.3;
+    }
+    .cert-content p {
+        font-size: 0.7rem;
+        line-height: 1.3;
+    }
+    .cert-link {
+        bottom: 12px;
+        right: 10px;
+    }
+    .cert-link i {
+        font-size: 0.7rem;
+        -webkit-text-stroke: 0.5px currentColor;
+    }
 }
 
 /* --- Unified Contact Structure (Mobile-First) --- */
@@ -797,9 +858,10 @@ footer {
     
     .certs-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 220px));
+        justify-content: center;
         gap: 20px;
-        max-width: 1000px;
+        max-width: 520px;
         margin: 0 auto;
     }
     
@@ -941,7 +1003,9 @@ footer {
     }
     
     .certs-grid {
-        max-width: 1100px;
+        grid-template-columns: repeat(3, minmax(0, 220px));
+        justify-content: center;
+        max-width: 800px;
     }
     
     .contact-container {
@@ -1055,4 +1119,57 @@ footer {
         transform: translateY(-30px);
         opacity: 0;
     }
+}
+
+/* --- Scroll to Top Button --- */
+.scroll-to-top {
+    position: fixed;
+    bottom: 80px;
+    right: 24px;
+    width: 44px;
+    height: 52px;
+    border-radius: 8px;
+    background: var(--bg-navbar);
+    border: 1.5px solid var(--accent-color);
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                visibility 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 4px 15px var(--glass-shadow);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    outline: none;
+}
+
+.scroll-to-top.show {
+    opacity: 0.85;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 40px;
+        right: 16px;
+        width: 36px;
+        height: 44px;
+        font-size: 0.95rem;
+        border-radius: 6px;
+        border-width: 1.2px;
+    }
+}
+
+/* --- Light Mode Optimizations --- */
+[data-theme="light"] .scroll-to-top {
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
